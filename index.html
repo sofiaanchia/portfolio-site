@@ -6,7 +6,7 @@
 <title>Sofia's Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@400;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #efece5;
@@ -68,6 +68,25 @@
     line-height: 1.1;
     letter-spacing: -0.02em;
     margin: 0 0 0.6rem;
+  }
+
+  .signature {
+    font-family: 'Caveat', cursive;
+    font-size: 2.1rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-left: 0.4rem;
+    white-space: nowrap;
+  }
+
+  .type-cursor {
+    display: inline-block;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
   }
 
   .subtitle {
@@ -159,6 +178,68 @@
     color: var(--accent);
   }
 
+  .projects-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2.5rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .projects-header .kicker {
+    margin: 0;
+  }
+
+  .layout-toggle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 0.3rem 0.65rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .layout-toggle:hover {
+    color: var(--accent);
+  }
+
+  .layout-toggle .dots {
+    display: inline-block;
+    transform: rotate(90deg);
+  }
+
+  .layout-toggle[data-icon="vertical"] .dots {
+    transform: rotate(0deg);
+  }
+
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .projects[data-layout="grid"] {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .projects[data-layout="grid"] .project-row {
+    padding: 0.5rem;
+  }
+
+  .projects[data-layout="grid"] .link-label {
+    font-size: 0.68rem;
+    line-height: 1.3;
+  }
+
+  .projects[data-layout="grid"] .link-meta,
+  .projects[data-layout="grid"] .arrow {
+    display: none;
+  }
+
   .theme-toggle {
     position: fixed;
     top: 1.25rem;
@@ -203,8 +284,74 @@
 
   <div class="page">
     <div class="kicker">personal site &mdash; work in progress</div>
-    <h1>Sofia Ramirez Anchia</h1>
-    <p class="subtitle">Building this out over time. For now, here's where to find me and what I've done.</p>
+    <h1><span id="typed-title"></span><span class="signature" id="typed-signature"></span><span class="type-cursor" id="type-cursor">|</span></h1>
+    <p class="subtitle" id="subtitle-p"><span id="typed-subtitle"></span></p>
+    <script>
+      (function () {
+        var titleEl = document.getElementById('typed-title');
+        var sigEl = document.getElementById('typed-signature');
+        var subtitleEl = document.getElementById('typed-subtitle');
+        var subtitleP = document.getElementById('subtitle-p');
+        var cursor = document.getElementById('type-cursor');
+        var title = 'My Portfolio ';
+        var signature = 'by Sofia Anchia';
+        var subtitle = "Building this out over time. For now, here's where to find me and what I've done.";
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          titleEl.textContent = title;
+          sigEl.textContent = signature;
+          subtitleEl.textContent = subtitle;
+          cursor.style.display = 'none';
+          return;
+        }
+
+        var i = 0;
+        function typeTitle() {
+          if (i < title.length) {
+            titleEl.textContent += title.charAt(i);
+            i++;
+            setTimeout(typeTitle, 55);
+          } else {
+            setTimeout(typeSignature, 200);
+          }
+        }
+        var j = 0;
+        function typeSignature() {
+          if (j < signature.length) {
+            sigEl.textContent += signature.charAt(j);
+            j++;
+            setTimeout(typeSignature, 75);
+          } else {
+            subtitleP.appendChild(cursor);
+            setTimeout(typeSubtitle, 300);
+          }
+        }
+        var k = 0;
+        function typeSubtitle() {
+          if (k < subtitle.length) {
+            subtitleEl.textContent += subtitle.charAt(k);
+            k++;
+            setTimeout(typeSubtitle, 28);
+          } else {
+            setTimeout(finalBlink, 400);
+          }
+        }
+        function finalBlink() {
+          cursor.style.animation = 'none';
+          cursor.style.opacity = '1';
+          var toggles = 0;
+          var iv = setInterval(function () {
+            cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            toggles++;
+            if (toggles >= 6) {
+              clearInterval(iv);
+              cursor.style.display = 'none';
+            }
+          }, 300);
+        }
+        typeTitle();
+      })();
+    </script>
 
     <div class="links">
       <a class="link-row" href="https://www.linkedin.com/in/sofia-ramirez-anchia" target="_blank" rel="noopener">
@@ -230,39 +377,61 @@
       </a>
     </div>
 
-    <div class="kicker" style="margin-top: 2.5rem;">projects</div>
-    <a class="project-card" href="https://www.linkedin.com/in/sofia-ramirez-anchia/overlay/Project/304406412/treasury/?profileId=ACoAADrpPOgBnHfTCq7h4yMKYfT7RFflm5-aeRg" target="_blank" rel="noopener">
-      <img class="project-thumb" src="project-cdot.jpg" alt="CDOT Car Crash Analysis title slide">
-      <div class="project-row">
-        <span>
-          <div class="link-label">CDOT Crash Risk Prediction Model + Platform</div>
-          <div class="link-meta">Colorado School of Mines &middot; Jan&ndash;May 2026</div>
-        </span>
-        <span class="arrow">&#8594;</span>
-      </div>
-    </a>
+    <div class="projects-header">
+      <div class="kicker">projects</div>
+      <button class="layout-toggle" onclick="
+        var grid = document.getElementById('projects');
+        var next = grid.getAttribute('data-layout') === 'grid' ? 'stack' : 'grid';
+        grid.setAttribute('data-layout', next);
+        localStorage.setItem('projectLayout', next);
+        this.setAttribute('data-icon', next === 'grid' ? 'vertical' : 'horizontal');
+      "><span class="dots">&#8942;</span></button>
+    </div>
+    <div class="projects" id="projects">
+      <a class="project-card" href="https://www.linkedin.com/in/sofia-ramirez-anchia/overlay/Project/304406412/treasury/?profileId=ACoAADrpPOgBnHfTCq7h4yMKYfT7RFflm5-aeRg" target="_blank" rel="noopener">
+        <img class="project-thumb" src="project-cdot.jpg" alt="CDOT Car Crash Analysis title slide">
+        <div class="project-row">
+          <span>
+            <div class="link-label">CDOT Crash Risk Prediction Model + Platform</div>
+            <div class="link-meta">Colorado School of Mines &middot; Jan&ndash;May 2026</div>
+          </span>
+          <span class="arrow">&#8594;</span>
+        </div>
+      </a>
 
-    <a class="project-card" href="https://www.linkedin.com/in/sofia-ramirez-anchia/overlay/Project/1067607194/treasury/?profileId=ACoAADrpPOgBnHfTCq7h4yMKYfT7RFflm5-aeRg" target="_blank" rel="noopener" style="margin-top: 0.9rem;">
-      <img class="project-thumb" src="project-wafer.jpg" alt="Wafer Composite Defect Identifier Model title slide">
-      <div class="project-row">
-        <span>
-          <div class="link-label">Wafer Composite Defect Identifier Model (CNN) + User Interface</div>
-          <div class="link-meta">Aug 2026 &ndash; Present</div>
-        </span>
-        <span class="arrow">&#8594;</span>
-      </div>
-    </a>
+      <a class="project-card" href="https://www.linkedin.com/in/sofia-ramirez-anchia/overlay/Project/1067607194/treasury/?profileId=ACoAADrpPOgBnHfTCq7h4yMKYfT7RFflm5-aeRg" target="_blank" rel="noopener">
+        <img class="project-thumb" src="project-wafer.jpg" alt="Wafer Composite Defect Identifier Model title slide">
+        <div class="project-row">
+          <span>
+            <div class="link-label">Wafer Composite Defect Identifier Model (CNN) + User Interface</div>
+            <div class="link-meta">Aug 2026 &ndash; Present</div>
+          </span>
+          <span class="arrow">&#8594;</span>
+        </div>
+      </a>
 
-    <a class="project-card" href="https://www.linkedin.com/in/sofia-ramirez-anchia/details/projects/" target="_blank" rel="noopener" style="margin-top: 0.9rem;">
-      <img class="project-thumb" src="project-shieldrx.jpg" alt="ShieldRx: Automatic Pill Dispenser and Storage poster">
-      <div class="project-row">
-        <span>
-          <div class="link-label">ShieldRx &mdash; IoT Medication Adherence System</div>
-          <div class="link-meta">Jan 2024 &ndash; Apr 2024</div>
-        </span>
-        <span class="arrow">&#8594;</span>
-      </div>
-    </a>
+      <a class="project-card" href="https://www.linkedin.com/in/sofia-ramirez-anchia/details/projects/" target="_blank" rel="noopener">
+        <img class="project-thumb" src="project-shieldrx.jpg" alt="ShieldRx: Automatic Pill Dispenser and Storage poster">
+        <div class="project-row">
+          <span>
+            <div class="link-label">ShieldRx &mdash; IoT Medication Adherence System</div>
+            <div class="link-meta">Jan 2024 &ndash; Apr 2024</div>
+          </span>
+          <span class="arrow">&#8594;</span>
+        </div>
+      </a>
+    </div>
+    <script>
+      (function () {
+        var saved = localStorage.getItem('projectLayout');
+        var grid = document.getElementById('projects');
+        var btn = document.querySelector('.layout-toggle');
+        if (saved === 'grid') {
+          grid.setAttribute('data-layout', 'grid');
+          btn.setAttribute('data-icon', 'vertical');
+        }
+      })();
+    </script>
 
     <div class="footer">more sections coming soon</div>
   </div>
