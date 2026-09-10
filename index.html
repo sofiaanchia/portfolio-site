@@ -240,6 +240,151 @@
     display: none;
   }
 
+  .exp-card {
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .exp-card + .exp-card {
+    margin-top: 0.9rem;
+  }
+
+  .exp-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.95rem 1.1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .exp-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .exp-summary:hover {
+    background: rgba(122, 75, 58, 0.07);
+  }
+
+  .exp-summary:hover .link-meta {
+    color: var(--accent);
+  }
+
+  .exp-logo {
+    width: 72px;
+    height: 40px;
+    flex-shrink: 0;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+  }
+
+  .exp-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .exp-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .exp-caret {
+    transition: transform 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .exp-card[open] .exp-caret {
+    transform: rotate(90deg);
+  }
+
+  .exp-body {
+    padding: 0 1.1rem 1.1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .exp-body ul {
+    margin: 0.9rem 0 0;
+    padding-left: 1.1rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .exp-body li + li {
+    margin-top: 0.5rem;
+  }
+
+  .client-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    border: 1px solid var(--line);
+    padding: 0.3rem 0.6rem;
+    margin-top: 0.9rem;
+  }
+
+  .exp-summary-line {
+    margin: 0.7rem 0 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  .client-links {
+    margin-top: 0.9rem;
+  }
+
+  .client-links-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .client-link {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.85rem;
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    padding: 0.3rem 0;
+    line-height: 1.5;
+  }
+
+  .client-link:hover {
+    color: var(--accent);
+  }
+
+  .medium-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    background: #fff;
+    border-radius: 50%;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .medium-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
   .theme-toggle {
     position: fixed;
     top: 1.25rem;
@@ -376,6 +521,60 @@
         <span class="arrow">&#8594;</span>
       </a>
     </div>
+
+    <div class="kicker" style="margin-top: 2.5rem;">experience</div>
+    <details class="exp-card">
+      <summary class="exp-summary">
+        <div class="exp-logo">
+          <img src="samsung-logo.svg" alt="Samsung logo">
+        </div>
+        <div class="exp-info">
+          <div class="link-label">Yield Analysis &mdash; Engineering Intern</div>
+          <div class="link-meta">Samsung Semiconductor &middot; May&ndash;Aug 2026 &middot; Austin, TX</div>
+        </div>
+        <span class="arrow exp-caret">&#8594;</span>
+      </summary>
+      <div class="exp-body">
+        <ul>
+          <li>Developed an automated yield data analysis platform in R, integrating and normalizing data from S3 and in-house cloud storage into executive-ready reports, reducing manual data entry time by ~95% (~5 hours/week) for the engineering team</li>
+          <li>Diagnosed and resolved a recurring bug affecting quarterly calculations across small- and large-volume products, restoring 100% data completeness for previously missing values on key products including mainrunners, and improving overall pipeline reliability</li>
+          <li>Collaborated with yield engineers to scope and implement additional features, including patching and filtering missing die-level data for mass production products</li>
+          <li>Built a 3-tier Yield Trend dashboard, featuring a program ID&ndash;coded overview to isolate real yield shifts from process-change noise and granular drill-down tiers covering bin group and bin movement views; translated the dashboard from Python to R to align with the team's stack for future maintenance</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="exp-card" style="margin-top: 0.9rem;">
+      <summary class="exp-summary">
+        <div class="exp-logo" style="padding: 3px 5px;">
+          <img src="aiarrive-logo.svg" alt="AI Arrive logo">
+        </div>
+        <div class="exp-info">
+          <div class="link-label">AI/MCP Technical Consultant Intern</div>
+          <div class="link-meta">AI Arrive &middot; May&ndash;Jul 2025 &middot; Golden, CO</div>
+        </div>
+        <span class="arrow exp-caret">&#8594;</span>
+      </summary>
+      <div class="exp-body">
+        <div class="client-tag">Client &middot; AIpipheny (Dr. Michelle Archuleta, Founder)</div>
+        <ul>
+          <li>Architected a serverless AI framework on AWS automating pharmaceutical research report generation, integrating a RAG system with bioinformatic tools via MCP (Model Context Protocol)</li>
+          <li>Implemented production-ready microservices using Lambda, DynamoDB, and Bedrock Claude to orchestrate PubMed searches and gene network analysis</li>
+          <li>Projected serverless hosting costs at $0&ndash;200/month, keeping ongoing overhead under 1% of the project's $50K development investment; led agile development and biweekly client meetings through handover</li>
+        </ul>
+        <div class="client-links">
+          <div class="client-links-label">More about our client:</div>
+          <a class="client-link" href="https://medium.com/authority-magazine/inspirational-women-in-stem-and-tech-i-have-found-on-a-number-of-occasions-that-by-admitting-that-121ba399c62f" target="_blank" rel="noopener">
+            <span class="medium-icon"><img src="medium-icon.svg" alt=""></span>
+            Inspirational Women in STEM and Tech &mdash; Authority Magazine
+          </a>
+          <a class="client-link" href="https://medium.com/authority-magazine/women-leading-the-ai-industry-why-you-should-be-peculiar-with-dr-michelle-archuleta-e1e0ac0b4146" target="_blank" rel="noopener">
+            <span class="medium-icon"><img src="medium-icon.svg" alt=""></span>
+            Women Leading The AI Industry: "Why you should be peculiar", With Dr. Michelle Archuleta
+          </a>
+        </div>
+      </div>
+    </details>
 
     <div class="projects-header">
       <div class="kicker">projects</div>
