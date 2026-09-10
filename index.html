@@ -4,62 +4,196 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sofia Ramirez Anchia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
+    --bg: #efece5;
+    --paper: #f8f6f1;
+    --ink: #1c1b19;
+    --muted: #6b6660;
+    --line: #c7c0b4;
+    --accent: #7a4b3a;
     color-scheme: light dark;
   }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 4rem 1.5rem;
-    line-height: 1.6;
-    background: #fafafa;
-    color: #1a1a1a;
-  }
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 0.25rem;
-  }
-  p.subtitle {
-    color: #555;
-    margin-top: 0;
-  }
-  .links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-  }
-  .links a {
-    display: inline-block;
-    padding: 0.6rem 1.2rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    border: 1px solid #1a1a1a;
-    color: #1a1a1a;
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-  .links a:hover {
-    background: #1a1a1a;
-    color: #fafafa;
-  }
+
   @media (prefers-color-scheme: dark) {
-    body { background: #111; color: #eee; }
-    p.subtitle { color: #aaa; }
-    .links a { border-color: #eee; color: #eee; }
-    .links a:hover { background: #eee; color: #111; }
+    :root:not([data-theme="light"]) {
+      --bg: #17161a;
+      --paper: #1f1e22;
+      --ink: #ece9e3;
+      --muted: #9b968d;
+      --line: #3a3733;
+      --accent: #cf9a83;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #17161a;
+    --paper: #1f1e22;
+    --ink: #ece9e3;
+    --muted: #9b968d;
+    --line: #3a3733;
+    --accent: #cf9a83;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Archivo', Arial, sans-serif;
+    padding-block: 4.5rem;
+    padding-inline: 1.25rem;
+  }
+
+  .page {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9rem;
+  }
+
+  h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.6rem;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin: 0 0 2.25rem;
+    max-width: 34ch;
+  }
+
+  .links {
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .link-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.95rem 1.1rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .link-row + .link-row {
+    border-top: 1px solid var(--line);
+  }
+
+  .link-row:hover {
+    background: rgba(122, 75, 58, 0.07);
+  }
+
+  .link-label {
+    font-size: 0.98rem;
+    font-weight: 600;
+  }
+
+  .link-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .link-row:hover .link-meta {
+    color: var(--accent);
+  }
+
+  .arrow {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .footer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 2.5rem;
+  }
+
+  .theme-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.7rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .theme-toggle:hover {
+    color: var(--accent);
   }
 </style>
+<script>
+  (function () {
+    var saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  })();
+</script>
 </head>
 <body>
-  <h1>Sofia Ramirez Anchia</h1>
-  <p class="subtitle">This is a work-in-progress personal site &mdash; more coming soon.</p>
+  <button class="theme-toggle" onclick="
+    var root = document.documentElement;
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    this.textContent = next === 'dark' ? 'light mode' : 'dark mode';
+  ">dark mode</button>
+  <script>
+    (function () {
+      var btn = document.currentScript.previousElementSibling;
+      var explicit = document.documentElement.getAttribute('data-theme');
+      var isDark = explicit ? explicit === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      btn.textContent = isDark ? 'light mode' : 'dark mode';
+    })();
+  </script>
 
-  <div class="links">
-    <a href="https://www.linkedin.com/in/sofia-ramirez-anchia" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+  <div class="page">
+    <div class="kicker">personal site &mdash; work in progress</div>
+    <h1>Sofia Ramirez Anchia</h1>
+    <p class="subtitle">Building this out over time. For now, here's where to find me and what I've done.</p>
+
+    <div class="links">
+      <a class="link-row" href="https://www.linkedin.com/in/sofia-ramirez-anchia" target="_blank" rel="noopener">
+        <span>
+          <div class="link-label">LinkedIn</div>
+          <div class="link-meta">in/sofia-ramirez-anchia</div>
+        </span>
+        <span class="arrow">&#8594;</span>
+      </a>
+      <a class="link-row" href="resume.pdf" target="_blank" rel="noopener">
+        <span>
+          <div class="link-label">Resume</div>
+          <div class="link-meta">PDF</div>
+        </span>
+        <span class="arrow">&#8594;</span>
+      </a>
+    </div>
+
+    <div class="footer">more sections coming soon</div>
   </div>
 </body>
 </html>
