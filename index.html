@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sofia Ramirez Anchia</title>
+<title>Sofia's Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -129,6 +129,36 @@
     margin-top: 2.5rem;
   }
 
+  .project-card {
+    display: block;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .project-thumb {
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .project-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.95rem 1.1rem;
+  }
+
+  .project-card:hover .project-row {
+    background: rgba(122, 75, 58, 0.07);
+  }
+
+  .project-card:hover .link-meta {
+    color: var(--accent);
+  }
+
   .theme-toggle {
     position: fixed;
     top: 1.25rem;
@@ -199,6 +229,18 @@
         <span class="arrow">&#8594;</span>
       </a>
     </div>
+
+    <div class="kicker" style="margin-top: 2.5rem;">projects</div>
+    <a class="project-card" href="https://www.linkedin.com/in/sofia-ramirez-anchia/overlay/Project/304406412/treasury/?profileId=ACoAADrpPOgBnHfTCq7h4yMKYfT7RFflm5-aeRg" target="_blank" rel="noopener">
+      <img class="project-thumb" src="project-cdot.jpg" alt="CDOT Car Crash Analysis title slide">
+      <div class="project-row">
+        <span>
+          <div class="link-label">CDOT Crash Risk Prediction Model + Platform</div>
+          <div class="link-meta">Colorado School of Mines &middot; Jan&ndash;May 2026</div>
+        </span>
+        <span class="arrow">&#8594;</span>
+      </div>
+    </a>
 
     <div class="footer">more sections coming soon</div>
   </div>
