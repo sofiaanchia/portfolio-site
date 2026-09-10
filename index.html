@@ -280,7 +280,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 10px;
+    padding: 3px 5px;
   }
 
   .exp-logo img {
@@ -364,6 +364,61 @@
 
   .client-link:hover {
     color: var(--accent);
+  }
+
+  .research-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.9rem;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    border: 1px solid var(--line);
+    padding: 0.25rem 0.55rem;
+  }
+
+  .research-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    padding: 0.9rem 1.1rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .research-card:hover {
+    background: rgba(122, 75, 58, 0.07);
+  }
+
+  .research-card:hover .link-meta {
+    color: var(--accent);
+  }
+
+  .research-thumb {
+    width: 74px;
+    height: 96px;
+    object-fit: contain;
+    background: #fff;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+  }
+
+  .research-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .research-desc {
+    margin: 0.35rem 0 0;
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
   }
 
   .medium-icon {
@@ -546,7 +601,7 @@
 
     <details class="exp-card" style="margin-top: 0.9rem;">
       <summary class="exp-summary">
-        <div class="exp-logo" style="padding: 3px 5px;">
+        <div class="exp-logo">
           <img src="aiarrive-logo.svg" alt="AI Arrive logo">
         </div>
         <div class="exp-info">
@@ -587,23 +642,23 @@
       "><span class="dots">&#8942;</span></button>
     </div>
     <div class="projects" id="projects">
-      <a class="project-card" href="https://www.linkedin.com/in/sofia-ramirez-anchia/overlay/Project/304406412/treasury/?profileId=ACoAADrpPOgBnHfTCq7h4yMKYfT7RFflm5-aeRg" target="_blank" rel="noopener">
-        <img class="project-thumb" src="project-cdot.jpg" alt="CDOT Car Crash Analysis title slide">
-        <div class="project-row">
-          <span>
-            <div class="link-label">CDOT Crash Risk Prediction Model + Platform</div>
-            <div class="link-meta">Colorado School of Mines &middot; Jan&ndash;May 2026</div>
-          </span>
-          <span class="arrow">&#8594;</span>
-        </div>
-      </a>
-
       <a class="project-card" href="https://www.linkedin.com/in/sofia-ramirez-anchia/overlay/Project/1067607194/treasury/?profileId=ACoAADrpPOgBnHfTCq7h4yMKYfT7RFflm5-aeRg" target="_blank" rel="noopener">
         <img class="project-thumb" src="project-wafer.jpg" alt="Wafer Composite Defect Identifier Model title slide">
         <div class="project-row">
           <span>
             <div class="link-label">Wafer Composite Defect Identifier Model (CNN) + User Interface</div>
             <div class="link-meta">Aug 2026 &ndash; Present</div>
+          </span>
+          <span class="arrow">&#8594;</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://www.linkedin.com/in/sofia-ramirez-anchia/overlay/Project/304406412/treasury/?profileId=ACoAADrpPOgBnHfTCq7h4yMKYfT7RFflm5-aeRg" target="_blank" rel="noopener">
+        <img class="project-thumb" src="project-cdot.jpg" alt="CDOT Car Crash Analysis title slide">
+        <div class="project-row">
+          <span>
+            <div class="link-label">CDOT Crash Risk Prediction Model + Platform</div>
+            <div class="link-meta">Colorado School of Mines &middot; Jan&ndash;May 2026</div>
           </span>
           <span class="arrow">&#8594;</span>
         </div>
@@ -620,6 +675,21 @@
         </div>
       </a>
     </div>
+
+    <div class="kicker" style="margin-top: 2.5rem;">research</div>
+    <div class="research-tags">
+      <span class="tag">Generative AI Research</span>
+      <span class="tag">Computer Science Research</span>
+    </div>
+    <a class="research-card" href="https://arxiv.org/abs/2411.11166" target="_blank" rel="noopener">
+      <img class="research-thumb" src="research-genai-paper.jpg" alt="Early Adoption of Generative Artificial Intelligence in Computing Education paper title page">
+      <div class="research-info">
+        <div class="link-label">Early Adoption of Generative Artificial Intelligence in Computing Education: Emergent Student Use Cases and Perspectives</div>
+        <div class="link-meta">Colorado School of Mines &middot; Graduate Research Assistant &ndash; Generative AI &middot; May 2023&ndash;Jan 2024</div>
+        <p class="research-desc">Conducted edge case&ndash;specific research for this published paper (arXiv:2411.11166), coding and managing multiple survey phases capturing data from 12% of the student body.</p>
+      </div>
+      <span class="arrow">&#8594;</span>
+    </a>
     <script>
       (function () {
         var saved = localStorage.getItem('projectLayout');
