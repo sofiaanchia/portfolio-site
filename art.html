@@ -14,6 +14,8 @@
     --muted: #6b6660;
     --line: #c7c0b4;
     --accent: #7a4b3a;
+    --page-width: 480px;
+    --gallery-width: 900px;
     color-scheme: light dark;
   }
 
@@ -48,8 +50,17 @@
   }
 
   .page {
-    max-width: 480px;
+    max-width: var(--page-width);
     margin: 0 auto;
+  }
+
+  .gallery {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+
+  .gallery.wide {
+    max-width: var(--gallery-width);
   }
 
   .kicker {
@@ -147,22 +158,14 @@
   }
 
   .sketch-card {
-    width: 100%;
+    width: var(--full-w, 100%);
     margin-top: 0.6rem;
     perspective: 1200px;
     cursor: pointer;
   }
 
   .sketch-card.compact {
-    width: 280px;
-  }
-
-  #sketch-card-2.compact {
-    width: 120px;
-  }
-
-  #sketch-card-3.compact {
-    width: 165px;
+    width: var(--compact-w, 280px);
   }
 
   .sketch-collage.collage-wrap {
@@ -186,6 +189,22 @@
 
   .sketch-collage.collage-wrap .sketch-item:nth-child(3) {
     transform: rotate(-1.5deg);
+  }
+
+  .sketch-collage.collage-wrap .sketch-item:nth-child(4) {
+    transform: rotate(2.5deg) translateY(8px);
+  }
+
+  .sketch-collage.collage-wrap .sketch-item:nth-child(5) {
+    transform: rotate(-2.2deg) translateY(20px);
+  }
+
+  .sketch-collage.collage-wrap .sketch-item:nth-child(6) {
+    transform: rotate(1.8deg);
+  }
+
+  .sketch-collage.collage-wrap .sketch-item:nth-child(7) {
+    transform: rotate(-1.2deg) translateY(10px);
   }
 
   .sketch-collage.collage-wrap .sketch-card {
@@ -234,15 +253,21 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
+    width: 100%;
   }
 
   .tag {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--accent);
     border: 1px solid var(--line);
-    padding: 0.25rem 0.55rem;
+    padding: 0.25rem 0.5rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.3;
   }
 
   #sketch-card-3 .sketch-face {
@@ -342,7 +367,9 @@
         typeTitle();
       })();
     </script>
+  </div>
 
+  <div class="gallery">
     <div class="sketch-header">
       <button class="layout-toggle" id="sketch-layout-toggle" onclick="
         var collage = document.getElementById('sketch-collage');
@@ -352,6 +379,7 @@
           cards[c].classList.toggle('compact', next);
         }
         collage.classList.toggle('collage-wrap', next);
+        document.querySelector('.gallery').classList.toggle('wide', next);
         localStorage.setItem('sketchesCompact', next ? 'on' : 'off');
         this.setAttribute('data-icon', next ? 'vertical' : 'horizontal');
       "><span class="dots">&#8942;</span></button>
@@ -378,7 +406,7 @@
       </div>
 
       <div class="sketch-item">
-        <div class="sketch-card" id="sketch-card-2" style="margin-top: 1.5rem; max-width: 260px;" onclick="this.classList.toggle('flipped')">
+        <div class="sketch-card" id="sketch-card-2" style="margin-top: 1.5rem; --full-w: 260px; --compact-w: 120px;" onclick="this.classList.toggle('flipped')">
           <div class="sketch-inner" style="aspect-ratio: 746 / 1244;">
             <div class="sketch-face sketch-front">
               <img src="mothermary2.1.jpg" alt="La Virgen pen sketch">
@@ -398,7 +426,7 @@
       </div>
 
       <div class="sketch-item">
-        <div class="sketch-card" id="sketch-card-3" style="margin-top: 1.5rem; max-width: 280px;" onclick="this.classList.toggle('flipped')">
+        <div class="sketch-card" id="sketch-card-3" style="margin-top: 1.5rem; --full-w: 280px; --compact-w: 165px;" onclick="this.classList.toggle('flipped')">
           <div class="sketch-inner" style="aspect-ratio: 985 / 1219;">
             <div class="sketch-face sketch-front">
               <img src="holdingheart.jpg" alt="Doodle break sketch of a figure holding a radiant heart">
@@ -416,6 +444,80 @@
         </div>
         <div class="sketch-hint">click to flip</div>
       </div>
+
+      <div class="sketch-item">
+        <div class="sketch-card" id="sketch-card-4" style="margin-top: 1.5rem; --full-w: 260px; --compact-w: 150px;" onclick="this.classList.toggle('flipped')">
+          <div class="sketch-inner" style="aspect-ratio: 1000 / 1179;">
+            <div class="sketch-face sketch-front">
+              <img src="jesus.jpg" alt="Sacred Heart of Jesus watercolor and pencil sketch">
+            </div>
+            <div class="sketch-face sketch-back">
+              <div class="sketch-tags">
+                <span class="tag">Jesus</span>
+                <span class="tag">Sketch</span>
+                <span class="tag">Makeup</span>
+                <span class="tag">Circa College?</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sketch-hint">click to flip</div>
+      </div>
+
+      <div class="sketch-item">
+        <div class="sketch-card" id="sketch-card-5" style="margin-top: 1.5rem; --full-w: 300px; --compact-w: 160px;" onclick="this.classList.toggle('flipped')">
+          <div class="sketch-inner" style="aspect-ratio: 932 / 1344;">
+            <div class="sketch-face sketch-front">
+              <img src="redsketch.jpg" alt="Red pen doodle collage sketch">
+            </div>
+            <div class="sketch-face sketch-back">
+              <div class="sketch-tags">
+                <span class="tag">Sketch</span>
+                <span class="tag">Pen</span>
+                <span class="tag">Donosti, Euskadi</span>
+                <span class="tag">Partly inspired by Cr&oacute;nica de una muerte anunciada by Gabriel Garc&iacute;a M&aacute;rquez</span>
+                <span class="tag">circa 2024</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sketch-hint">click to flip</div>
+      </div>
+
+      <div class="sketch-item">
+        <div class="sketch-card" id="sketch-card-6" style="margin-top: 1.5rem;" onclick="this.classList.toggle('flipped')">
+          <div class="sketch-inner" style="aspect-ratio: 1000 / 1260;">
+            <div class="sketch-face sketch-front">
+              <img src="fancylady.jpg" alt="1920s-style makeup ad inspired acrylic painting">
+            </div>
+            <div class="sketch-face sketch-back">
+              <div class="sketch-tags">
+                <span class="tag">Acrylic</span>
+                <span class="tag">20s Makeup Ad Inspired</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sketch-hint">click to flip</div>
+      </div>
+
+      <div class="sketch-item">
+        <div class="sketch-card" id="sketch-card-7" style="margin-top: 1.5rem;" onclick="this.classList.toggle('flipped')">
+          <div class="sketch-inner" style="aspect-ratio: 1000 / 1239;">
+            <div class="sketch-face sketch-front">
+              <img src="securitycam.jpg" alt="Charcoal drawing of a security camera on a brick wall">
+            </div>
+            <div class="sketch-face sketch-back">
+              <div class="sketch-tags">
+                <span class="tag">Charcoal</span>
+                <span class="tag">Dallas, TX</span>
+                <span class="tag">Surveillance Camera</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sketch-hint">click to flip</div>
+      </div>
     </div>
 
     <script>
@@ -423,6 +525,7 @@
         var saved = localStorage.getItem('sketchesCompact');
         if (saved === 'on') {
           document.getElementById('sketch-collage').classList.add('collage-wrap');
+          document.querySelector('.gallery').classList.add('wide');
           var cards = document.querySelectorAll('.sketch-card');
           for (var c = 0; c < cards.length; c++) {
             cards[c].classList.add('compact');
