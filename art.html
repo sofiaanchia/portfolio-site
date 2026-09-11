@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofia's Sketchbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@400;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f8f6f1;
+    --ink: #1c1b19;
+    --muted: #6b6660;
+    --line: #c7c0b4;
+    --accent: #7a4b3a;
+    color-scheme: light dark;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1f1e22;
+      --ink: #ece9e3;
+      --muted: #9b968d;
+      --line: #3a3733;
+      --accent: #cf9a83;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #1f1e22;
+    --ink: #ece9e3;
+    --muted: #9b968d;
+    --line: #3a3733;
+    --accent: #cf9a83;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: #d8d5cd url('art-bg.jpg') center center / cover no-repeat fixed;
+    color: var(--ink);
+    font-family: 'Archivo', Arial, sans-serif;
+    padding-block: 4.5rem;
+    padding-inline: 1.25rem;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9rem;
+  }
+
+  h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.6rem;
+  }
+
+  .signature {
+    font-family: 'Caveat', cursive;
+    font-size: 2.1rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-left: 0.4rem;
+    white-space: nowrap;
+  }
+
+  .type-cursor {
+    display: inline-block;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin: 0 0 2.25rem;
+    max-width: 34ch;
+  }
+
+  .theme-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.7rem;
+    cursor: pointer;
+    line-height: 1;
+    text-decoration: none;
+    display: block;
+  }
+
+  .theme-toggle:hover {
+    color: var(--accent);
+  }
+
+  .sketch-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  .layout-toggle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 0.3rem 0.65rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .layout-toggle:hover {
+    color: var(--accent);
+  }
+
+  .layout-toggle .dots {
+    display: inline-block;
+    transform: rotate(90deg);
+  }
+
+  .layout-toggle[data-icon="vertical"] .dots {
+    transform: rotate(0deg);
+  }
+
+  .sketch-card {
+    width: 100%;
+    margin-top: 0.6rem;
+    perspective: 1200px;
+    cursor: pointer;
+  }
+
+  .sketch-card.compact {
+    width: 280px;
+  }
+
+  #sketch-card-2.compact {
+    width: 120px;
+  }
+
+  #sketch-card-3.compact {
+    width: 165px;
+  }
+
+  .sketch-collage.collage-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5rem 1.25rem;
+  }
+
+  .sketch-collage.collage-wrap .sketch-item {
+    margin-top: 0 !important;
+  }
+
+  .sketch-collage.collage-wrap .sketch-item:nth-child(1) {
+    transform: rotate(-2deg);
+  }
+
+  .sketch-collage.collage-wrap .sketch-item:nth-child(2) {
+    transform: rotate(1.5deg) translateY(14px);
+  }
+
+  .sketch-collage.collage-wrap .sketch-item:nth-child(3) {
+    transform: rotate(-1.5deg);
+  }
+
+  .sketch-collage.collage-wrap .sketch-card {
+    margin-top: 0 !important;
+  }
+
+  .sketch-inner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1078 / 1100;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .sketch-card.flipped .sketch-inner {
+    transform: rotateY(180deg);
+  }
+
+  .sketch-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    overflow: hidden;
+  }
+
+  .sketch-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .sketch-back {
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .sketch-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    border: 1px solid var(--line);
+    padding: 0.25rem 0.55rem;
+  }
+
+  #sketch-card-3 .sketch-face {
+    clip-path: polygon(
+      11.1% 0%, 10.4% 4.9%, 9.6% 9.8%, 8.8% 14.8%, 8.0% 19.7%, 7.3% 24.6%,
+      6.5% 29.5%, 5.8% 34.5%, 5.0% 39.4%, 4.3% 44.3%, 3.5% 49.2%, 2.7% 54.1%,
+      1.9% 59.1%, 1.2% 64.0%, 0.3% 68.9%, 0% 73.8%,
+      0% 100%, 100% 100%, 100% 0%
+    );
+  }
+
+  .sketch-hint {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    text-shadow: 0 1px 8px rgba(255, 255, 255, 0.7);
+  }
+</style>
+<script>
+  (function () {
+    var saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  })();
+</script>
+</head>
+<body>
+  <a class="theme-toggle" href="index.html">portfolio mode</a>
+
+  <div class="page">
+    <div class="kicker">personal site &mdash; work in progress</div>
+    <h1><span id="typed-title"></span><span class="signature" id="typed-signature"></span><span class="type-cursor" id="type-cursor">|</span></h1>
+    <p class="subtitle" id="subtitle-p"><span id="typed-subtitle"></span></p>
+    <script>
+      (function () {
+        var titleEl = document.getElementById('typed-title');
+        var sigEl = document.getElementById('typed-signature');
+        var subtitleEl = document.getElementById('typed-subtitle');
+        var subtitleP = document.getElementById('subtitle-p');
+        var cursor = document.getElementById('type-cursor');
+        var title = 'My Sketchbook ';
+        var signature = 'by Sofia Anchia';
+        var subtitle = "Building this out over time. For now, here's where to find me and what I've done.";
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          titleEl.textContent = title;
+          sigEl.textContent = signature;
+          subtitleEl.textContent = subtitle;
+          cursor.style.display = 'none';
+          return;
+        }
+
+        var i = 0;
+        function typeTitle() {
+          if (i < title.length) {
+            titleEl.textContent += title.charAt(i);
+            i++;
+            setTimeout(typeTitle, 55);
+          } else {
+            setTimeout(typeSignature, 200);
+          }
+        }
+        var j = 0;
+        function typeSignature() {
+          if (j < signature.length) {
+            sigEl.textContent += signature.charAt(j);
+            j++;
+            setTimeout(typeSignature, 75);
+          } else {
+            subtitleP.appendChild(cursor);
+            setTimeout(typeSubtitle, 300);
+          }
+        }
+        var k = 0;
+        function typeSubtitle() {
+          if (k < subtitle.length) {
+            subtitleEl.textContent += subtitle.charAt(k);
+            k++;
+            setTimeout(typeSubtitle, 28);
+          } else {
+            setTimeout(finalBlink, 400);
+          }
+        }
+        function finalBlink() {
+          cursor.style.animation = 'none';
+          cursor.style.opacity = '1';
+          var toggles = 0;
+          var iv = setInterval(function () {
+            cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            toggles++;
+            if (toggles >= 6) {
+              clearInterval(iv);
+              cursor.style.display = 'none';
+            }
+          }, 300);
+        }
+        typeTitle();
+      })();
+    </script>
+
+    <div class="sketch-header">
+      <button class="layout-toggle" id="sketch-layout-toggle" onclick="
+        var collage = document.getElementById('sketch-collage');
+        var cards = document.querySelectorAll('.sketch-card');
+        var next = !cards[0].classList.contains('compact');
+        for (var c = 0; c < cards.length; c++) {
+          cards[c].classList.toggle('compact', next);
+        }
+        collage.classList.toggle('collage-wrap', next);
+        localStorage.setItem('sketchesCompact', next ? 'on' : 'off');
+        this.setAttribute('data-icon', next ? 'vertical' : 'horizontal');
+      "><span class="dots">&#8942;</span></button>
+    </div>
+    <div class="sketch-collage" id="sketch-collage">
+      <div class="sketch-item">
+        <div class="sketch-card" id="sketch-card-1" onclick="this.classList.toggle('flipped')">
+          <div class="sketch-inner">
+            <div class="sketch-face sketch-front">
+              <img src="mothermary1.jpg" alt="Painting in progress">
+            </div>
+            <div class="sketch-face sketch-back">
+              <div class="sketch-tags">
+                <span class="tag">La Virgen</span>
+                <span class="tag">Acrylic</span>
+                <span class="tag">In Progress</span>
+                <span class="tag">San Miguel de Allende, Mexico</span>
+                <span class="tag">August 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sketch-hint">click to flip</div>
+      </div>
+
+      <div class="sketch-item">
+        <div class="sketch-card" id="sketch-card-2" style="margin-top: 1.5rem; max-width: 260px;" onclick="this.classList.toggle('flipped')">
+          <div class="sketch-inner" style="aspect-ratio: 746 / 1244;">
+            <div class="sketch-face sketch-front">
+              <img src="mothermary2.1.jpg" alt="La Virgen pen sketch">
+            </div>
+            <div class="sketch-face sketch-back">
+              <div class="sketch-tags">
+                <span class="tag">La Virgen</span>
+                <span class="tag">Pen</span>
+                <span class="tag">Sketch</span>
+                <span class="tag">Austin, TX</span>
+                <span class="tag">Summer 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sketch-hint">click to flip</div>
+      </div>
+
+      <div class="sketch-item">
+        <div class="sketch-card" id="sketch-card-3" style="margin-top: 1.5rem; max-width: 280px;" onclick="this.classList.toggle('flipped')">
+          <div class="sketch-inner" style="aspect-ratio: 985 / 1219;">
+            <div class="sketch-face sketch-front">
+              <img src="holdingheart.jpg" alt="Doodle break sketch of a figure holding a radiant heart">
+            </div>
+            <div class="sketch-face sketch-back">
+              <div class="sketch-tags">
+                <span class="tag">Austin, TX</span>
+                <span class="tag">Holding Heart</span>
+                <span class="tag">Pen</span>
+                <span class="tag">Sketch</span>
+                <span class="tag">Summer 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sketch-hint">click to flip</div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var saved = localStorage.getItem('sketchesCompact');
+        if (saved === 'on') {
+          document.getElementById('sketch-collage').classList.add('collage-wrap');
+          var cards = document.querySelectorAll('.sketch-card');
+          for (var c = 0; c < cards.length; c++) {
+            cards[c].classList.add('compact');
+          }
+          document.getElementById('sketch-layout-toggle').setAttribute('data-icon', 'vertical');
+        }
+      })();
+    </script>
+  </div>
+</body>
+</html>

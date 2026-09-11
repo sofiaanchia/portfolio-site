@@ -457,6 +457,18 @@
   .theme-toggle:hover {
     color: var(--accent);
   }
+
+  .art-toggle {
+    top: 3.6rem;
+    text-decoration: none;
+    display: block;
+  }
+
+  .intro {
+    background: var(--bg);
+    position: relative;
+    z-index: 1;
+  }
 </style>
 <script>
   (function () {
@@ -482,7 +494,10 @@
     })();
   </script>
 
+  <a class="theme-toggle art-toggle" href="art.html">art mode</a>
+
   <div class="page">
+    <div class="intro">
     <div class="kicker">personal site &mdash; work in progress</div>
     <h1><span id="typed-title"></span><span class="signature" id="typed-signature"></span><span class="type-cursor" id="type-cursor">|</span></h1>
     <p class="subtitle" id="subtitle-p"><span id="typed-subtitle"></span></p>
@@ -552,6 +567,7 @@
         typeTitle();
       })();
     </script>
+    </div>
 
     <div class="links">
       <a class="link-row" href="https://www.linkedin.com/in/sofia-ramirez-anchia" target="_blank" rel="noopener">
