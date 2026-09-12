@@ -25,18 +25,7 @@
     --muted: #6b6660;
     --line: #c7c0b4;
     --accent: #7a4b3a;
-    color-scheme: light dark;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #17161a;
-      --paper: #1f1e22;
-      --ink: #ece9e3;
-      --muted: #9b968d;
-      --line: #3a3733;
-      --accent: #cf9a83;
-    }
+    color-scheme: light;
   }
 
   :root[data-theme="dark"] {
@@ -506,7 +495,7 @@
     (function () {
       var btn = document.currentScript.previousElementSibling;
       var explicit = document.documentElement.getAttribute('data-theme');
-      var isDark = explicit ? explicit === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var isDark = explicit === 'dark';
       btn.textContent = isDark ? 'light mode' : 'dark mode';
     })();
   </script>
